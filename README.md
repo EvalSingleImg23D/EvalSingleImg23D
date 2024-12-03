@@ -12,8 +12,7 @@ pip3 install wheel
 cd YOLOX/
 pip3 install -r requirement.txt
 pip3 install -v -e .
-pip3 install bpy
-pip3 install mathutils
+pip3 install bpy mathutils transformers
 ```
 
 - Download pretrained weight

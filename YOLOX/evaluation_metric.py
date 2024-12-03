@@ -6,11 +6,11 @@
 # python3 SIGGRAPH_dir.py -n yolox-x -c ./yolox_x.pth --image_path assets/image.jpg --dir_path assets/rendered/ --img23D_model_name DG
 
 # レンダリングした画像のディレクトリパスと元画像のパスを入力し, 上位5クラスの確信度とクラス名から評価を行う. 
-# 推論を行うinferenceメソッドは面積が最大のbboxのみを返す. 
+# 推論を行うinferenceメソッドで面積が最大のbboxのみを返す. 
 
-# vis_folder : image-to-3D models (DG, TGS, LGM, etc)
-# class_folder : objects (airplane, bus, etc)
-# class_folder contains [original, 1, 2, ..., N]
+# vis_folder : image-to-3Dモデルごとに作成 (DG, TGS, LGM, etc)
+# class_folder : クラスごと(元画像ごと)に作成 (airplane, bus, etc)
+# class_folderの中に(original, 1, 2, ..., 120, csv, mp4)を格納
 
 import argparse
 import os, sys
@@ -23,6 +23,7 @@ import cv2
 import torch, torch.nn
 import torch.nn.functional as F
 import numpy as np
+from transformers import ElectraTokenizer, ElectraModel
 
 from yolox.data.data_augment import ValTransform
 from yolox.data.datasets import COCO_CLASSES
@@ -32,6 +33,10 @@ from demo_utils import get_stem
 
 IMAGE_EXT = [".jpg", ".jpeg", ".webp", ".bmp", ".png"]
 
+embeddings = torch.load("ELECTRA_coco_embeddings.pt")
+# embeddings[0]でperson(0番目)の埋め込みベクトルが取得できる. 
+
+# コマンドライン引数の定義
 def make_parser():
     parser = argparse.ArgumentParser("evaluation using YOLOX")
     parser.add_argument(
@@ -49,6 +54,7 @@ def make_parser():
     parser.add_argument(
         "--img23D_model_name", type=str,
     )
+    # これを変えると動かない
     parser.add_argument(
         "-f", "--exp_file", default=None, type=str, help="please input your experiment description file",
     )
@@ -65,13 +71,13 @@ def get_image_list(path):
     return image_names
 
 def softmax(x):
-    x_cpu = [t.cpu().numpy() / 0.3 for t in x]
-    exp_x = np.exp(x_cpu - np.max(x_cpu))
+    x_cpu = [t.cpu().numpy() / 0.3 for t in x]    # xはテンソル
+    exp_x = np.exp(x_cpu - np.max(x_cpu))   # オーバーフロー対策のために最大値を引く
     return exp_x / exp_x.sum()
 
 def cos_sim(v1, v2):
-    v1 = v1.flatten()
-    v2 = v2.flatten()
+    v1 = v1.flatten()  # 1次元に変換
+    v2 = v2.flatten()  # 1次元に変換
     return np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
 
 class Predictor(object):
