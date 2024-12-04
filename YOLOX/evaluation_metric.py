@@ -54,7 +54,6 @@ def make_parser():
     parser.add_argument(
         "--img23D_model_name", type=str,
     )
-    # これを変えると動かない
     parser.add_argument(
         "-f", "--exp_file", default=None, type=str, help="please input your experiment description file",
     )
@@ -269,7 +268,7 @@ def imageflow_demo(predictor, class_folder, args):
         # print(P_i)
         
         p_i_norm = np.linalg.norm(P_i)
-        print(frame_count, COCO_CLASSES[frame_top5_index[0]], image_name)
+        # print(frame_count, COCO_CLASSES[frame_top5_index[0]], image_name)
                 
         A = []
         for j in C_GT_cup_i:
@@ -297,6 +296,7 @@ def imageflow_demo(predictor, class_folder, args):
         sum += r[i]
     index_value = sum / number_of_frame
     print(index_value)
+    return index_value
 
 # エントリーポイント
 def main(exp, args):
