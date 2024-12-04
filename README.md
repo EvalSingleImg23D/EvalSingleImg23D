@@ -42,3 +42,18 @@ python3 evaluation_metric.py -n yolox-x -c ./yolox_x.pth --image_path assets/uns
 
 - TO-DO
   - release rendering code
+
+## Acknowledgement
+
+In this study, we utilized the YOLOX code. We sincerely thank the developers for sharing the code.
+
+https://github.com/Megvii-BaseDetection/YOLOX
+
+```latex
+ @article{yolox2021,
+  title={YOLOX: Exceeding YOLO Series in 2021},
+  author={Ge, Zheng and Liu, Songtao and Wang, Feng and Li, Zeming and Sun, Jian},
+  journal={arXiv preprint arXiv:2107.08430},
+  year={2021}
+}
+```
