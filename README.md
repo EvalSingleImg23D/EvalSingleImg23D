@@ -42,6 +42,7 @@ python3 evaluation_metric.py -n yolox-x -c ./yolox_x.pth --image_path assets/uns
 
 - TO-DO
   - release rendering code
+  - Package this repository so that it can be installed with pip install ......
 
 ## Acknowledgement
 
@@ -55,5 +56,24 @@ https://github.com/Megvii-BaseDetection/YOLOX
   author={Ge, Zheng and Liu, Songtao and Wang, Feng and Li, Zeming and Sun, Jian},
   journal={arXiv preprint arXiv:2107.08430},
   year={2021}
+}
+```
+
+## Citation
+
+```latex
+@inproceedings{EvalSingleImg23D,
+author = {Uchida, Yuiko and Togo, Ren and Maeda, Keisuke and Ogawa, Takahiro and Haseyama, Miki},
+title = {An Evaluation Metric for Single Image-to-3D Models Based on Object Detection Perspective},
+year = {2024},
+publisher = {Association for Computing Machinery},
+url = {https://doi.org/10.1145/3681758.3697992},
+doi = {10.1145/3681758.3697992},
+booktitle = {SIGGRAPH Asia 2024 Technical Communications},
+articleno = {31},
+numpages = {4},
+location = {
+},
+series = {SA '24}
 }
 ```
