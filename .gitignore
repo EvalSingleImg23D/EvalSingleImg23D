@@ -227,6 +227,6 @@ events.out.tfevents*
 ehthumbs.db
 Thumbs.db
 
-# render/
+render/
 render/assets_test/
 __pycache__/

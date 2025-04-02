@@ -32,7 +32,9 @@ wget https://github.com/Megvii-BaseDetection/YOLOX/releases/download/0.1.1rc0/yo
 ## Evaluation demo
 
 - Render 3D object from various viewpoints
-  - coming soom
+  1. Normalize mesh within [-0.5, 0.5] cube
+  2. Render with specified elevation and azimuth angles
+  3. Code: https://github.com/Jennifer827/blender_utils
 - Calculate evaluation metric
 
 ```
@@ -49,9 +51,7 @@ python3 evaluation_metric.py -n yolox-x -c ./yolox_x.pth --image_path assets/uns
   - yolox/utils/boxes.py
 
 - TO-DO
-  - release rendering code
   - Package this repository so that it can be installed with pip install ......
-  - Docker
 
 ## Acknowledgement
 
