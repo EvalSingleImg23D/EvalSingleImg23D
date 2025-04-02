@@ -228,3 +228,5 @@ ehthumbs.db
 Thumbs.db
 
 # render/
+render/assets_test/
+__pycache__/
